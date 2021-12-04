@@ -1,0 +1,45 @@
+._modal {
+}
+
+._modal.open .modal-overlay,
+._modal.open .modal-window {
+  opacity: 1;
+  z-index: 1000;
+}
+
+.modal-window,
+.modal-overlay {
+  opacity: 0;
+  z-index: -1;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal-window {
+  width: 700px;
+  border-radius: 5px;
+  background: #fff;
+  margin: 100px auto;
+}
+.modal-header {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.modal-title {
+  font-size: 1.5rem;
+}
+.modal-close {
+  cursor: pointer;
+}
+.modal-body {
+  padding: 10px;
+}
+.modal-footer {
+  padding: 5px 10px;
+}
