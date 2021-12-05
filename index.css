@@ -1,4 +1,9 @@
-._modal {
+._modal.open .modal-window {
+  transform: translateY(300px);
+}
+
+._modal.open .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
 }
 
 ._modal.open .modal-overlay,
@@ -18,13 +23,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s ease-in;
 }
 .modal-window {
   width: 700px;
   border-radius: 5px;
   background: #fff;
-  margin: 100px auto;
+  margin: 0 auto;
+  transform: translateY((-300px));
+  transition: transform 0.7s ease-in;
 }
 .modal-header {
   padding: 5px 10px;
