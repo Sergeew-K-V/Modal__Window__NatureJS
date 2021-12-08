@@ -1,4 +1,4 @@
-const animals = [
+let animals = [
   {
     id: 1,
     title: 'Сова',
@@ -32,8 +32,8 @@ const toHTML = (animal) =>
               <p class="card-text">
                 Популяция составляет ${animal.population} миллионнов особей!
               </p>
-              <a href="#" class="btn btn-primary">Посмотреть на него</a>
-              <a href="#" class="btn btn-danger">Лайк</a>
+              <a href="#" class="btn btn-primary" data-btn="show" data-id="${animal.id}">Посмотреть на него</a>
+              <a href="#" class="btn btn-danger" data-btn="remove" data-id="${animal.id}">Скрыть</a>
             </div>
           </div>
         </div>
@@ -44,8 +44,8 @@ function render() {
   document.querySelector('#getAnimals').innerHTML = html
 }
 
-const modal = $.modal({
-  title: 'Vladilen Modal',
+const modalShow = $.modal({
+  title: 'Temp title',
   closable: true,
   content: `
     <h4>Modal is working</h4>
@@ -55,22 +55,47 @@ const modal = $.modal({
   width: '400px',
   footerButtons: [
     {
-      text: 'Ok',
+      text: 'Ага',
       type: 'primary',
       handler() {
         console.log('Primary btn clicked')
-        modal.close()
+        modalShow.close()
       },
     },
     {
-      text: 'Cancel',
+      text: 'Угу',
       type: 'danger',
       handler() {
         console.log('Danger btn clicked')
-        modal.close()
+        modalShow.close()
       },
     },
   ],
 })
 
 render()
+
+document.addEventListener('click', (event) => {
+  event.preventDefault()
+  const btnType = event.target.dataset.btn
+  const id = +event.target.dataset.id
+  const animal = animals.find((f) => f.id === id)
+
+  if (btnType === 'show') {
+    modalShow.setContent(`
+    <p>Популяция данного вида состовляет ${animal.population}. Особь данного вида называют <span>${animal.title}</span> </p>
+    `)
+
+    modalShow.open()
+  } else if (btnType === 'remove') {
+    $.confirm({
+      title: 'Вы уверены?',
+      content: `<p>Окно ${animal.title} будет скрыто</p>`,
+    })
+      .then(() => {
+        animals = animals.filter((f) => f.id !== id)
+        render()
+      })
+      .catch(() => console.log('No deleted'))
+  }
+})

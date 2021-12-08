@@ -79,6 +79,9 @@ $.modal = function (options) {
       setTimeout(() => {
         $modal.classList.remove('hide')
         closing = false
+        if (typeof options.onClose === 'function') {
+          options.onClose()
+        }
       }, ANIMATION_SPEED)
     },
   }
@@ -97,9 +100,9 @@ $.modal = function (options) {
     destroy() {
       $modal.parentNode.removeChild($modal)
       $modal.removeEventListener('click', listener)
-      destroyed - true
+      destroyed = true
     },
-    setContent() {
+    setContent(html) {
       $modal.querySelector('[data-content]').innerHTML = html
     },
   })
