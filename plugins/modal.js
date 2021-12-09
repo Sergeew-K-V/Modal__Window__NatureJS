@@ -56,13 +56,13 @@ function _createModal(options) {
   document.body.appendChild(modal)
   return modal
 }
-let destroyed = false
-let opened = false
 $.modal = function (options) {
   const ANIMATION_SPEED = 200
   const $modal = _createModal(options)
   let closing = false
+  let opened = false
 
+  let destroyed = false
   const modal = {
     open() {
       if (destroyed) {
